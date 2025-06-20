@@ -26,7 +26,6 @@ class BlocServiceTest {
     @Test
     @DisplayName("addOrUpdate saves the bloc and assigns its chambres")
     void addOrUpdate_should_save_bloc_and_chambres() {
-        // ── Arrange ──────────────────────────────────────────────────────
         Bloc bloc = new Bloc();
         bloc.setNomBloc("B‑1");
 
@@ -44,8 +43,8 @@ class BlocServiceTest {
         Bloc result = blocService.addOrUpdate(bloc);
 
         Assertions.assertEquals(1L, result.getIdBloc());
-        verify(blocRepository).save(bloc);   // bloc persisted
-        verify(chambreRepository).save(ch);  // chambre persisted & linked
+        verify(blocRepository).save(bloc);
+        verify(chambreRepository).save(ch);
         verifyNoMoreInteractions(chambreRepository, blocRepository);
     }
 }
