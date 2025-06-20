@@ -1,57 +1,51 @@
 package tn.esprit.spring;
 
-import org.junit.After;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+import java.util.List;
+
 import org.junit.jupiter.api.*;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(SpringRunner.class)
-@TestMethodOrder(MethodOrderer.class)
-@SpringBootTest
-public class BlocServiceTest {
+import tn.esprit.spring.DAO.Entities.*;
+import tn.esprit.spring.DAO.Repositories.*;
+import tn.esprit.spring.Services.Bloc.BlocService;
 
-    @BeforeAll
-    void bedore() {
+@ExtendWith(MockitoExtension.class)
+class BlocServiceTest {
 
-    }
+    @Mock BlocRepository      blocRepository;
+    @Mock ChambreRepository   chambreRepository;
+    @Mock FoyerRepository     foyerRepository;
 
-    @AfterAll
-    void after() {
+    @InjectMocks BlocService  blocService;
 
-    }
-
-    @BeforeEach
-    void beforeEach() {
-
-    }
-
-    @AfterEach
-    void afterEach() {
-
-    }
-
-    @Order(1)
-    @RepeatedTest(4)
-    void test() {
-
-    }
-
-    @Order(4)
     @Test
-    void test2() {
+    @DisplayName("addOrUpdate saves the bloc and assigns its chambres")
+    void addOrUpdate_should_save_bloc_and_chambres() {
+        // ── Arrange ──────────────────────────────────────────────────────
+        Bloc bloc = new Bloc();
+        bloc.setNomBloc("B‑1");
 
-    }
+        Chambre ch = new Chambre();
+        ch.setNumeroChambre(101L);
+        bloc.setChambres(List.of(ch));
 
-    @Order(2)
-    @Test
-    void test3() {
+        when(blocRepository.save(any(Bloc.class)))
+                .thenAnswer(inv -> {
+                    Bloc saved = inv.getArgument(0);
+                    saved.setIdBloc(1L);
+                    return saved;
+                });
 
-    }
+        Bloc result = blocService.addOrUpdate(bloc);
 
-    @Order(3)
-    @Test
-    void test4() {
-
+        Assertions.assertEquals(1L, result.getIdBloc());
+        verify(blocRepository).save(bloc);   // bloc persisted
+        verify(chambreRepository).save(ch);  // chambre persisted & linked
+        verifyNoMoreInteractions(chambreRepository, blocRepository);
     }
 }
