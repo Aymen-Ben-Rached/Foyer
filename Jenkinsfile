@@ -101,9 +101,11 @@ pipeline {
 
         stage('Start Docker Compose Stack') {
             steps {
-                echo "Starting Docker Compose (app + MySQL DB)"
+                echo "Starting Docker Compose stack (app + MySQL)"
                 sh '''
-                    docker-compose down || true
+                    docker-compose down --remove-orphans || true
+                    docker ps -aqf "name=mysql" | xargs -r docker rm -f || true
+                    docker ps -aqf "name=foyer-app" | xargs -r docker rm -f || true
                     docker-compose up -d
                 '''
             }
