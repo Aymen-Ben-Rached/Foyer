@@ -75,15 +75,26 @@ pipeline {
                 sh 'docker build -t aymen/foyer:latest .'
             }
         }
+        /*
         stage('Push Docker Image') {
             steps {
                 echo "Logging in to Docker Hub and pushing image"
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                sh '''
-                echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                docker push aymen/foyer:latest
-                '''
+                    sh '''
+                        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                        docker push aymen/foyer:latest
+                    '''
                 }
+            }
+        }
+        */
+        stage('Start Docker Compose Stack') {
+            steps {
+                echo "Starting Docker Compose stack"
+                sh '''
+                    docker-compose down || true
+                    docker-compose up -d
+                '''
             }
         }
     }
