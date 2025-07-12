@@ -1,15 +1,17 @@
 pipeline {
     agent any
+
     environment {
         MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
     }
+
     stages {
         stage('Checkout') {
             steps {
                 echo "Getting project from GitHub"
                 git url: 'https://github.com/Aymen-Ben-Rached/Foyer.git',
-                branch: 'master',
-                credentialsId: 'github-pat'
+                    branch: 'master',
+                    credentialsId: 'github-pat'
             }
         }
 
@@ -102,7 +104,7 @@ pipeline {
                 echo "Starting Docker Compose stack"
                 sh '''
                     docker-compose down || true
-                    docker rm -f nexus || true
+                    docker rm -f nexus sonarqube mysql || true
                     docker-compose up -d
                 '''
             }
