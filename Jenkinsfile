@@ -111,4 +111,22 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            emailext (
+                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    <p>Build Status: <b>${currentBuild.currentResult}</b></p>
+                    <p>Job: ${env.JOB_NAME}</p>
+                    <p>Build Number: ${env.BUILD_NUMBER}</p>
+                    <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                    <p>JaCoCo Coverage Report: <a href="${env.BUILD_URL}artifact/target/site/jacoco/index.html">View Report</a></p>
+                    <p>Check console output at <a href="${env.BUILD_URL}console">${env.BUILD_URL}console</a></p>
+                """,
+                to: 'aymenbenrached@gmail.com',
+                mimeType: 'text/html'
+            )
+        }
+    }
 }
