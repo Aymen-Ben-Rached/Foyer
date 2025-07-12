@@ -101,10 +101,9 @@ pipeline {
 
         stage('Start Docker Compose Stack') {
             steps {
-                echo "Starting Docker Compose stack"
+                echo "Starting Docker Compose (app + MySQL DB)"
                 sh '''
                     docker-compose down || true
-                    docker rm -f nexus sonarqube mysql || true
                     docker-compose up -d
                 '''
             }
