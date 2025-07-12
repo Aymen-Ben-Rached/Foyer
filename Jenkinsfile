@@ -12,6 +12,7 @@ pipeline {
                 credentialsId: 'github-pat'
             }
         }
+
         stage('Maven - Clean & Compile') {
             steps {
                 echo "Running mvn clean compile"
@@ -20,6 +21,7 @@ pipeline {
                 }
             }
         }
+
         stage('Tests & Coverage') {
             steps {
                 echo "Running tests and generating JaCoCo report"
@@ -28,6 +30,7 @@ pipeline {
                 }
             }
         }
+
         stage('SonarQube Analysis') {
             steps {
                 echo "Running SonarQube analysis"
@@ -43,17 +46,20 @@ pipeline {
                 }
             }
         }
+
         stage('Publish JUnit Results') {
             steps {
                 junit 'target/surefire-reports/*.xml'
             }
         }
+
         stage('Archive Coverage Report') {
             steps {
                 echo "Archiving JaCoCo HTML report"
                 archiveArtifacts artifacts: 'target/site/jacoco/**', fingerprint: true
             }
         }
+
         stage('Deploy to Nexus') {
             steps {
                 echo "Deploying to Nexus"
@@ -69,12 +75,14 @@ pipeline {
                 }
             }
         }
+
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker image"
                 sh 'docker build -t aymen/foyer:latest .'
             }
         }
+
         /*
         stage('Push Docker Image') {
             steps {
@@ -88,11 +96,13 @@ pipeline {
             }
         }
         */
+
         stage('Start Docker Compose Stack') {
             steps {
                 echo "Starting Docker Compose stack"
                 sh '''
                     docker-compose down || true
+                    docker rm -f nexus || true
                     docker-compose up -d
                 '''
             }
