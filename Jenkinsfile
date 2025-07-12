@@ -124,7 +124,7 @@ pipeline {
                     <p>JaCoCo Coverage Report: <a href="${env.BUILD_URL}artifact/target/site/jacoco/index.html">View Report</a></p>
                     <p>Check console output at <a href="${env.BUILD_URL}console">${env.BUILD_URL}console</a></p>
                 """,
-                to: 'aymenbenrached@gmail.com',
+                to: 'aymenbenrached2002@gmail.com',
                 mimeType: 'text/html'
             )
         }
