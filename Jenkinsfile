@@ -81,7 +81,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker image"
-                sh 'docker build -t aymen/foyer:latest .'
+                sh 'docker build -t aymenbr/foyer:latest .'
             }
         }
 
@@ -92,7 +92,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                     sh '''
                         echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                        docker push aymen/foyer:latest
+                        docker push aymenbr/foyer:latest
                     '''
                 }
             }
