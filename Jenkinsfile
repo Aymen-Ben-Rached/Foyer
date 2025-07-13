@@ -120,6 +120,10 @@ pipeline {
                     mkdir -p target/jmeter
                     docker run --rm -v "$PWD":/test -w /test justb4/jmeter:5.4 \
                         -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html
+
+                    # Fix permission issue caused by Docker running as root
+                    sudo chown -R $(whoami):$(whoami) target/jmeter || true
+
                 '''
             }
         }
