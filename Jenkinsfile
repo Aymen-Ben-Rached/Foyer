@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "Getting project from GitHub"
-                git url: 'https://github.com/Aymen-Ben-Rached/Foyer.git',
+                git url: 'https://github.com/Aymen-Ben-Rached/Foyer.git ',
                     branch: 'master',
                     credentialsId: 'github-pat'
             }
@@ -125,9 +125,16 @@ pipeline {
                 echo "Running JMeter load test"
                 sh '''
                     mkdir -p target/jmeter
-                    docker run --rm -u $(id -u):$(id -g) -v "$PWD":/test -w /test justb4/jmeter:5.4 \
-                        -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html -j target/jmeter/jmeter.log
-                    # Print JMeter log for debugging
+                    docker run --rm \
+                      --network=foyer_pipeline2_default \
+                      -u $(id -u):$(id -g) \
+                      -v "$PWD":/test \
+                      -w /test \
+                      justb4/jmeter:5.4 \
+                        -n -t load-test.jmx \
+                        -l target/jmeter/results.jtl \
+                        -e -o target/jmeter/html \
+                        -j target/jmeter/jmeter.log
                     cat target/jmeter/jmeter.log || true
                 '''
             }
@@ -136,7 +143,7 @@ pipeline {
         stage('Archive JMeter Results') {
             steps {
                 echo "Archiving JMeter results"
-                archiveArtifacts artifacts: 'target/jmeter/**, target/jmeter/jmeter.log', fingerprint: true
+                archiveArtifacts artifacts: 'target/jmeter/**', fingerprint: true
             }
         }
     }
