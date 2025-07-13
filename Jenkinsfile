@@ -17,7 +17,8 @@ pipeline {
 
         stage('Maven - Clean & Compile') {
             steps {
-                echo "Running mvn clean compile"
+                echo "Cleaning target directory to avoid mvn clean issues"
+                sh 'rm -rf target || true'
                 configFileProvider([configFile(fileId: 'settings_xml', variable: 'MAVEN_SETTINGS')]) {
                     sh 'mvn clean compile -s $MAVEN_SETTINGS'
                 }
