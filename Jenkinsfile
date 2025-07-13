@@ -114,6 +114,8 @@ pipeline {
                     docker ps -aqf "name=foyer-app" | xargs -r docker rm -f || true
                     docker-compose up -d
                     sleep 15
+                    # Check application health
+                    curl -f http://localhost:8080/health || echo "Application not responding"
                 '''
             }
         }
@@ -124,7 +126,9 @@ pipeline {
                 sh '''
                     mkdir -p target/jmeter
                     docker run --rm -u $(id -u):$(id -g) -v "$PWD":/test -w /test justb4/jmeter:5.4 \
-                        -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html
+                        -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html -j target/jmeter/jmeter.log
+                    # Print JMeter log for debugging
+                    cat target/jmeter/jmeter.log || true
                 '''
             }
         }
@@ -132,7 +136,7 @@ pipeline {
         stage('Archive JMeter Results') {
             steps {
                 echo "Archiving JMeter results"
-                archiveArtifacts artifacts: 'target/jmeter/**', fingerprint: true
+                archiveArtifacts artifacts: 'target/jmeter/**, target/jmeter/jmeter.log', fingerprint: true
             }
         }
     }
@@ -142,11 +146,9 @@ pipeline {
             script {
                 def jmeterSummary = sh(script: '''
                     if [ -f target/jmeter/results.jtl ]; then
-                        echo "JMeter test completed."
-                        total=$(grep -c "<httpSample" target/jmeter/results.jtl || true)
-                        failed=$(grep -c "s=\\"false\\"" target/jmeter/results.jtl || true)
+                        echo "JMeter test completed. Check the HTML report at ${BUILD_URL}artifact/target/jmeter/html/index.html for details."
                     else
-                        echo "No JMeter results found."
+                        echo "No JMeter results found. Check the JMeter log at ${BUILD_URL}artifact/target/jmeter/jmeter.log for errors."
                     fi
                 ''', returnStdout: true).trim()
 
@@ -160,11 +162,10 @@ Build Number: ${env.BUILD_NUMBER}
 Build URL: ${env.BUILD_URL}
 JaCoCo Coverage Report: ${env.BUILD_URL}artifact/target/site/jacoco/index.html
 Console Output: ${env.BUILD_URL}console
+JMeter Log: ${env.BUILD_URL}artifact/target/jmeter/jmeter.log
 
 JMeter Summary:
 ${jmeterSummary}
-Total Requests: ${total}
-Failed Requests: ${failed}
                     """
                 )
             }
