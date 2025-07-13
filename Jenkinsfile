@@ -115,7 +115,7 @@ pipeline {
                     docker-compose up -d
                     sleep 15
                     # Check application health
-                    curl -f http://localhost:8080/health || echo "Application not responding"
+                    curl -f http://localhost:8086/health || echo "Application not responding"
                 '''
             }
         }
