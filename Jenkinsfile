@@ -3,6 +3,8 @@ pipeline {
 
     environment {
         MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
+        JMETER_TEST_FILE = 'load-test.jmx' // Adjust path if jmx file is in a subdirectory, e.g., 'jmeter/load-test.jmx'
+        JMETER_REPORT_DIR = 'jmeter-report'
     }
 
     stages {
@@ -85,20 +87,6 @@ pipeline {
             }
         }
 
-        /*
-        stage('Push Docker Image') {
-            steps {
-                echo "Logging in to Docker Hub and pushing image"
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                    sh '''
-                        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                        docker push aymen/foyer:latest
-                    '''
-                }
-            }
-        }
-        */
-
         stage('Start Docker Compose Stack') {
             steps {
                 echo "Starting Docker Compose stack (app + MySQL)"
@@ -108,6 +96,21 @@ pipeline {
                     docker ps -aqf "name=foyer-app" | xargs -r docker rm -f || true
                     docker-compose up -d
                 '''
+            }
+        }
+
+        stage('Run JMeter Load Test') {
+            steps {
+                echo "Running JMeter load test in Docker"
+                sh """
+                    docker run --rm \
+                        -v \${WORKSPACE}:/jmeter \
+                        justb4/jmeter:5.4.3 \
+                        -n -t /jmeter/${env.JMETER_TEST_FILE} \
+                        -l /jmeter/${env.JMETER_REPORT_DIR}/results.jtl \
+                        -e -o /jmeter/${env.JMETER_REPORT_DIR}/html
+                """
+                archiveArtifacts artifacts: "${env.JMETER_REPORT_DIR}/**", fingerprint: true
             }
         }
     }
@@ -123,6 +126,7 @@ Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Build URL: ${env.BUILD_URL}
 JaCoCo Coverage Report: ${env.BUILD_URL}artifact/target/site/jacoco/index.html
+JMeter Load Test Report: ${env.BUILD_URL}artifact/${env.JMETER_REPORT_DIR}/html/index.html
 Console Output: ${env.BUILD_URL}console
                 """
             )
