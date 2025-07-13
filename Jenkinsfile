@@ -107,25 +107,61 @@ pipeline {
                     docker ps -aqf "name=mysql" | xargs -r docker rm -f || true
                     docker ps -aqf "name=foyer-app" | xargs -r docker rm -f || true
                     docker-compose up -d
+                    sleep 15
                 '''
+            }
+        }
+
+        stage('Load Test with JMeter') {
+            steps {
+                echo "Running JMeter load test"
+                sh '''
+                    mkdir -p target/jmeter
+                    docker run --rm -v "$PWD":/test -w /test justb4/jmeter:5.4.3 \
+                        -n -t load_test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html
+                '''
+            }
+        }
+
+        stage('Archive JMeter Results') {
+            steps {
+                echo "Archiving JMeter results"
+                archiveArtifacts artifacts: 'target/jmeter/**', fingerprint: true
             }
         }
     }
 
     post {
         always {
-            mail (
-                to: 'aymenbenrached2002@gmail.com',
-                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """
+            script {
+                def jmeterSummary = sh(script: '''
+                    if [ -f target/jmeter/results.jtl ]; then
+                        echo "JMeter test completed."
+                        total=$(grep -c "<httpSample" target/jmeter/results.jtl || true)
+                        failed=$(grep -c "s=\\"false\\"" target/jmeter/results.jtl || true)
+                        echo "Total Requests: $total"
+                        echo "Failed Requests: $failed"
+                    else
+                        echo "No JMeter results found."
+                    fi
+                ''', returnStdout: true).trim()
+
+                mail (
+                    to: 'aymenbenrached2002@gmail.com',
+                    subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """
 Build Status: ${currentBuild.currentResult}
 Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Build URL: ${env.BUILD_URL}
 JaCoCo Coverage Report: ${env.BUILD_URL}artifact/target/site/jacoco/index.html
 Console Output: ${env.BUILD_URL}console
-                """
-            )
+
+JMeter Summary:
+${jmeterSummary}
+                    """
+                )
+            }
         }
     }
 }
