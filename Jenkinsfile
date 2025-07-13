@@ -118,7 +118,7 @@ pipeline {
                 sh '''
                     mkdir -p target/jmeter
                     docker run --rm -v "$PWD":/test -w /test justb4/jmeter:5.4 \
-                        -n -t load_test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html
+                        -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html
                 '''
             }
         }
