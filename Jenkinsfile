@@ -6,23 +6,18 @@ pipeline {
     }
 
     stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
         stage('Checkout') {
             steps {
                 echo "Getting project from GitHub"
                 git url: 'https://github.com/Aymen-Ben-Rached/Foyer.git',
                     branch: 'master',
                     credentialsId: 'github-pat'
-            }
-        }
-
-        stage('Clean target directory') {
-            steps {
-                echo "Resetting permissions and cleaning target directory"
-                sh '''
-                    # Change ownership recursively to current user to avoid permission issues
-                    chown -R $(id -u):$(id -g) target || true
-                    rm -rf target || true
-                '''
             }
         }
 
@@ -128,11 +123,8 @@ pipeline {
                 echo "Running JMeter load test"
                 sh '''
                     mkdir -p target/jmeter
-                    docker run --rm -v "$PWD":/test -w /test justb4/jmeter:5.4 \
+                    docker run --rm -u $(id -u):$(id -g) -v "$PWD":/test -w /test justb4/jmeter:5.4 \
                         -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html
-
-                    # Fix permissions on generated JMeter files
-                    chown -R $(id -u):$(id -g) target/jmeter || true
                 '''
             }
         }
