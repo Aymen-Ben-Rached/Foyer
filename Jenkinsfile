@@ -126,7 +126,7 @@ pipeline {
                     chmod -R 777 ${env.JMETER_REPORT_DIR}
                     docker run --rm \
                         -v \${WORKSPACE}:/jmeter \
-                        justb4/jmeter:5.4.3 \
+                        ealen/jmeter:5.4.3 \
                         -n -t /jmeter/${env.JMETER_TEST_FILE} \
                         -l /jmeter/${env.JMETER_REPORT_DIR}/results.jtl \
                         -e -o /jmeter/${env.JMETER_REPORT_DIR}/html
