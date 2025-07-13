@@ -15,10 +15,20 @@ pipeline {
             }
         }
 
+        stage('Clean target directory') {
+            steps {
+                echo "Resetting permissions and cleaning target directory"
+                sh '''
+                    # Change ownership recursively to current user to avoid permission issues
+                    chown -R $(id -u):$(id -g) target || true
+                    rm -rf target || true
+                '''
+            }
+        }
+
         stage('Maven - Clean & Compile') {
             steps {
-                echo "Cleaning target directory to avoid mvn clean issues"
-                sh 'rm -rf target || true'
+                echo "Running Maven clean and compile"
                 configFileProvider([configFile(fileId: 'settings_xml', variable: 'MAVEN_SETTINGS')]) {
                     sh 'mvn clean compile -s $MAVEN_SETTINGS'
                 }
@@ -121,9 +131,8 @@ pipeline {
                     docker run --rm -v "$PWD":/test -w /test justb4/jmeter:5.4 \
                         -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html
 
-                    # Fix permission issue caused by Docker running as root
-                    sudo chown -R $(whoami):$(whoami) target/jmeter || true
-
+                    # Fix permissions on generated JMeter files
+                    chown -R $(id -u):$(id -g) target/jmeter || true
                 '''
             }
         }
