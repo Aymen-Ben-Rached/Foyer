@@ -145,8 +145,6 @@ pipeline {
                         echo "JMeter test completed."
                         total=$(grep -c "<httpSample" target/jmeter/results.jtl || true)
                         failed=$(grep -c "s=\\"false\\"" target/jmeter/results.jtl || true)
-                        echo "Total Requests: $total"
-                        echo "Failed Requests: $failed"
                     else
                         echo "No JMeter results found."
                     fi
@@ -165,6 +163,8 @@ Console Output: ${env.BUILD_URL}console
 
 JMeter Summary:
 ${jmeterSummary}
+Total Requests: ${total}
+Failed Requests: ${failed}
                     """
                 )
             }
