@@ -1,8 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.8.6-openjdk-11'
+            args '-v $HOME/.m2:/root/.m2 --network foyer_default'
+        }
+    }
 
     environment {
         MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
+        APP_HOST = 'foyer-app'
+        APP_PORT = '8086'
     }
 
     stages {
@@ -112,22 +119,45 @@ pipeline {
                     docker-compose down --remove-orphans || true
                     docker ps -aqf "name=mysql" | xargs -r docker rm -f || true
                     docker ps -aqf "name=foyer-app" | xargs -r docker rm -f || true
+                    docker image prune -f || true
                     docker-compose up -d
                     sleep 15
-                    # Check application health
-                    curl -f http://localhost:8086/health || echo "Application not responding"
+                    echo "Checking containers..."
+                    docker ps -a
+                    for i in {1..30}; do
+                        if curl -f http://$APP_HOST:$APP_PORT/health; then
+                            echo "Application is up on $APP_HOST:$APP_PORT"
+                            docker ps -a
+                            break
+                        fi
+                        echo "Waiting for application..."
+                        sleep 5
+                    done
+                    if ! curl -f http://$APP_HOST:$APP_PORT/health; then
+                        echo "Application not responding"
+                        docker-compose logs foyer-app
+                        docker-compose logs mysql
+                        docker ps -a
+                        exit 1
+                    fi
                 '''
             }
         }
 
         stage('Load Test with JMeter') {
+            agent {
+                docker {
+                    image 'justb4/jmeter:5.4.3'
+                    args '-u $(id -u):$(id -g) --network foyer_default -v "$PWD:/test"'
+                }
+            }
             steps {
                 echo "Running JMeter load test"
                 sh '''
+                    echo "Verifying connectivity to $APP_HOST:$APP_PORT"
+                    curl -v http://$APP_HOST:$APP_PORT/health
                     mkdir -p target/jmeter
-                    docker run --rm -u $(id -u):$(id -g) -v "$PWD":/test -w /test justb4/jmeter:5.4 \
-                        -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html -j target/jmeter/jmeter.log
-                    # Print JMeter log for debugging
+                    /opt/apache-jmeter-5.4.3/bin/jmeter -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html -j target/jmeter/jmeter.log
                     cat target/jmeter/jmeter.log || true
                 '''
             }
@@ -136,13 +166,18 @@ pipeline {
         stage('Archive JMeter Results') {
             steps {
                 echo "Archiving JMeter results"
-                archiveArtifacts artifacts: 'target/jmeter/**, target/jmeter/jmeter.log', fingerprint: true
+                archiveArtifacts artifacts: 'target/jmeter/**,target/jmeter/jmeter.log', fingerprint: true
             }
         }
     }
 
     post {
         always {
+            sh 'docker-compose logs foyer-app > foyer-app.log'
+            sh 'docker-compose logs mysql > mysql.log'
+            sh 'docker ps -a > docker-ps-a.log'
+            archiveArtifacts artifacts: '*.log', allowEmptyArchive: true
+            sh 'docker-compose down --remove-orphans || true'
             script {
                 def jmeterSummary = sh(script: '''
                     if [ -f target/jmeter/results.jtl ]; then
@@ -161,8 +196,12 @@ Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Build URL: ${env.BUILD_URL}
 JaCoCo Coverage Report: ${env.BUILD_URL}artifact/target/site/jacoco/index.html
-Console Output: ${env.BUILD_URL}console
+JMeter HTML Report: ${env.BUILD_URL}artifact/target/jmeter/html/index.html
 JMeter Log: ${env.BUILD_URL}artifact/target/jmeter/jmeter.log
+Console Output: ${env.BUILD_URL}console
+Application Log: ${env.BUILD_URL}artifact/foyer-app.log
+MySQL Log: ${env.BUILD_URL}artifact/mysql.log
+Docker Containers: ${env.BUILD_URL}artifact/docker-ps-a.log
 
 JMeter Summary:
 ${jmeterSummary}
