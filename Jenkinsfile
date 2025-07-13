@@ -107,7 +107,12 @@ pipeline {
                     docker ps -aqf "name=mysql" | xargs -r docker rm -f || true
                     docker ps -aqf "name=foyer-app" | xargs -r docker rm -f || true
                     docker-compose up -d
-                    sleep 15
+                '''
+                echo "Waiting for the application to be ready"
+                sh '''
+                    for i in {1..10}; do
+                        curl -sSf http://localhost:8086/Foyer/bloc/findAll && break || sleep 5
+                    done
                 '''
             }
         }
@@ -118,7 +123,9 @@ pipeline {
                 sh '''
                     mkdir -p target/jmeter
                     docker run --rm -v "$PWD":/test -w /test justb4/jmeter:5.4 \
-                        -n -t load-test.jmx -l target/jmeter/results.jtl -e -o target/jmeter/html
+                        -n -t load-test.jmx \
+                        -l target/jmeter/results.jtl \
+                        -e -o target/jmeter/html
                 '''
             }
         }
@@ -134,34 +141,31 @@ pipeline {
     post {
         always {
             script {
-                def jmeterSummary = sh(script: '''
-                    if [ -f target/jmeter/results.jtl ]; then
-                        echo "JMeter test completed."
-                        total=$(grep -c "<httpSample" target/jmeter/results.jtl || true)
-                        failed=$(grep -c "s=\\"false\\"" target/jmeter/results.jtl || true)
-                        echo "Total Requests: $total"
-                        echo "Failed Requests: $failed"
-                    else
-                        echo "No JMeter results found."
-                    fi
-                ''', returnStdout: true).trim()
+                def jtlFile = 'target/jmeter/results.jtl'
+                if (fileExists(jtlFile)) {
+                    echo 'JMeter test completed.'
+                    def total = sh(script: "grep -c '<httpSample' ${jtlFile}", returnStdout: true).trim()
+                    def failed = sh(script: "grep -c 's=\"false\"' ${jtlFile}", returnStdout: true).trim()
+                    echo "Total Requests: ${total}"
+                    echo "Failed Requests: ${failed}"
+                } else {
+                    echo 'No JMeter results found.'
+                }
+            }
 
-                mail (
-                    to: 'aymenbenrached2002@gmail.com',
-                    subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """
+            mail (
+                to: 'aymenbenrached2002@gmail.com',
+                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
 Build Status: ${currentBuild.currentResult}
 Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Build URL: ${env.BUILD_URL}
 JaCoCo Coverage Report: ${env.BUILD_URL}artifact/target/site/jacoco/index.html
+JMeter Report: ${env.BUILD_URL}artifact/target/jmeter/html/index.html
 Console Output: ${env.BUILD_URL}console
-
-JMeter Summary:
-${jmeterSummary}
-                    """
-                )
-            }
+                """
+            )
         }
     }
 }
