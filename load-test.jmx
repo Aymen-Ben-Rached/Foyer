@@ -33,7 +33,7 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{"numeroChambre":999,"typeC":"SINGLE","bloc":null,"reservations":[]}</stringProp>
+                <stringProp name="Argument.value">{"numeroChambre":999,"typeC":"SIMPLE","bloc":null,"reservations":[]}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
