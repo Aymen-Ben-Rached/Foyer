@@ -20,12 +20,12 @@
     <collectionProp name="Arguments.arguments">
       <elementProp name="body" elementType="HTTPArgument">
         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-        <stringProp name="Argument.value">
+<stringProp name="Argument.value">
 {
-  "numeroChambre": 10,
+  "numeroChambre": ${__intSum(${__threadNum},1,)},
   "typeC": "SIMPLE"
 }
-        </stringProp>
+</stringProp>
         <stringProp name="Argument.metadata">=</stringProp>
       </elementProp>
     </collectionProp>
