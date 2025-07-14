@@ -1,96 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-     <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
-       <hashTree>
-         <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Chambre POST CSV Test Plan" enabled="true">
-           <stringProp name="TestPlan.comments">Test plan to send POST requests with numeroChambre from 1 to 20 for JMeter 5.4.3</stringProp>
-           <boolProp name="TestPlan.functional_mode">false</boolProp>
-           <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
-           <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
-           <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-             <collectionProp name="Arguments.arguments"/>
-           </elementProp>
-           <stringProp name="TestPlan.user_define_classpath"></stringProp>
-         </TestPlan>
-         <hashTree>
-           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-             <stringProp name="delimiter">,</stringProp>
-             <stringProp name="fileEncoding">UTF-8</stringProp>
-             <stringProp name="filename">chambre_numbers.csv</stringProp>
-             <boolProp name="ignoreFirstLine">true</boolProp>
-             <boolProp name="quotedData">false</boolProp>
-             <boolProp name="recycle">false</boolProp>
-             <boolProp name="stopThread">true</boolProp>
-             <stringProp name="shareMode">shareMode.all</stringProp>
-             <stringProp name="variableNames">numeroChambre</stringProp>
-           </CSVDataSet>
-           <hashTree/>
-           <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="20 Users - 1 Request Each" enabled="true">
-             <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-             <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-               <boolProp name="LoopController.continue_forever">false</boolProp>
-               <stringProp name="LoopController.loops">1</stringProp>
-             </elementProp>
-             <stringProp name="ThreadGroup.num_threads">20</stringProp>
-             <stringProp name="ThreadGroup.ramp_time">1</stringProp>
-             <boolProp name="ThreadGroup.scheduler">false</boolProp>
-             <stringProp name="ThreadGroup.duration"></stringProp>
-             <stringProp name="ThreadGroup.delay"></stringProp>
-           </ThreadGroup>
-           <hashTree>
-             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST AddOrUpdate Chambre" enabled="true">
-               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                 <collectionProp name="Arguments.arguments"/>
-               </elementProp>
-               <stringProp name="HTTPSampler.domain">foyer-app</stringProp>
-               <stringProp name="HTTPSampler.port">8086</stringProp>
-               <stringProp name="HTTPSampler.protocol">http</stringProp>
-               <stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-               <stringProp name="HTTPSampler.method">POST</stringProp>
-               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-               <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-               <stringProp name="HTTPSampler.response_timeout"></stringProp>
-               <stringProp name="TestPlan.comments"></stringProp>
-               <stringProp name="HTTPSampler.postBodyRaw">true</stringProp>
-               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                 <collectionProp name="Arguments.arguments">
-                   <elementProp name="body" elementType="HTTPArgument">
-                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                     <stringProp name="Argument.value">
-     {
-       "numeroChambre": ${numeroChambre},
-       "typeC": "SIMPLE"
-     }
-                     </stringProp>
-                     <stringProp name="Argument.metadata">=</stringProp>
-                   </elementProp>
-                 </collectionProp>
-               </elementProp>
-             </HTTPSamplerProxy>
-             <hashTree>
-               <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-                 <collectionProp name="HeaderManager.headers">
-                   <elementProp name="Content-Type" elementType="Header">
-                     <stringProp name="Header.name">Content-Type</stringProp>
-                     <stringProp name="Header.value">application/json</stringProp>
-                   </elementProp>
-                 </collectionProp>
-               </HeaderManager>
-               <hashTree/>
-               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion" enabled="true">
-                 <collectionProp name="Asserion.test_strings">
-                   <stringProp name="0">200</stringProp>
-                 </collectionProp>
-                 <stringProp name="Assertion.custom_message"></stringProp>
-                 <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                 <boolProp name="Assertion.assume_success">false</boolProp>
-                 <intProp name="Assertion.test_type">16</intProp>
-               </ResponseAssertion>
-               <hashTree/>
-             </hashTree>
-           </hashTree>
-         </hashTree>
-       </jmeterTestPlan>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Chambre POST CSV Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments">Test plan to send POST requests with numeroChambre from 1 to 20 for JMeter 5.4.3</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+        <stringProp name="delimiter">,</stringProp>
+        <stringProp name="fileEncoding">UTF-8</stringProp>
+        <stringProp name="filename">chambre_numbers.csv</stringProp>
+        <boolProp name="ignoreFirstLine">true</boolProp>
+        <boolProp name="quotedData">false</boolProp>
+        <boolProp name="recycle">false</boolProp>
+        <boolProp name="stopThread">true</boolProp>
+        <stringProp name="shareMode">shareMode.all</stringProp>
+        <stringProp name="variableNames">numeroChambre</stringProp>
+      </CSVDataSet>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="20 Users - 1 Request Each" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST AddOrUpdate Chambre" enabled="true">
+          <stringProp name="HTTPSampler.domain">foyer-app</stringProp>
+          <stringProp name="HTTPSampler.port">8086</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.postBodyRaw">true</stringProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="body" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">
+{
+  "numeroChambre": ${numeroChambre},
+  "typeC": "SIMPLE"
+}
+                </stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="0">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
