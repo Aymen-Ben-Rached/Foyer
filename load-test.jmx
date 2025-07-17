@@ -42,7 +42,7 @@
               </elementProp>
             </collectionProp>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">foyer-app</stringProp>
+          <stringProp name="HTTPSampler.domain">localhost</stringProp>  
           <stringProp name="HTTPSampler.port">8086</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
