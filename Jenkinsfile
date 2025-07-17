@@ -113,7 +113,7 @@ pipeline {
                     docker ps -aqf "name=mysql" | xargs -r docker rm -f || true
                     docker ps -aqf "name=foyer-app" | xargs -r docker rm -f || true
                     docker-compose up -d
-                    sleep 40
+                    sleep 30
                     # Check application health
                     curl -f http://localhost:8086/Foyer/actuator/health || echo "Application not responding"
                 '''
