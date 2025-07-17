@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label '!docker' 
+    }
 
     environment {
         MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
