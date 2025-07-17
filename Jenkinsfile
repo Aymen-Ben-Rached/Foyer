@@ -161,7 +161,7 @@ pipeline {
                 ''', returnStdout: true).trim()
 
                 mail (
-                    to: 'aymenbenrached2002@gmail.com, chtibamedsalah@gmail.com',
+                    to: 'aymenbenrached2002@gmail.com',
                     subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                     body: """
 Build Status: ${currentBuild.currentResult}
