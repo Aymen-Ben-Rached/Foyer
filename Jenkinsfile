@@ -124,12 +124,12 @@ pipeline {
 
         stage('Load Test with JMeter') {
             steps {
-                echo "Running JMeter load test"
                 sh '''
+                    # Verify network access first
+                    curl -v http://localhost:8086/Foyer/actuator/health
+                    
                     mkdir -p target/jmeter
                     docker run --rm \
-                      --network=foyer_pipeline_default \
-                      -u $(id -u):$(id -g) \
                       -v "$PWD":/test \
                       -w /test \
                       justb4/jmeter:5.4 \
@@ -137,7 +137,6 @@ pipeline {
                         -l target/jmeter/results.jtl \
                         -e -o target/jmeter/html \
                         -j target/jmeter/jmeter.log
-                    cat target/jmeter/jmeter.log || true
                 '''
             }
         }
