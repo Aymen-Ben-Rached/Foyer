@@ -1,482 +1,69 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
-	<hashTree>
-		<TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
-			<stringProp name="TestPlan.comments" />
-			<boolProp name="TestPlan.functional_mode">false</boolProp>
-			<boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
-			<elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true" />
-			<stringProp name="TestPlan.user_define_classpath" />
-		</TestPlan>
-		<hashTree>
-			<ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="20 Users - 1 Request Each" enabled="true">
-				<stringProp name="ThreadGroup.num_threads">20</stringProp>
-				<stringProp name="ThreadGroup.ramp_time">1</stringProp>
-				<boolProp name="ThreadGroup.scheduler">false</boolProp>
-				<stringProp name="ThreadGroup.duration" />
-				<stringProp name="ThreadGroup.delay" />
-			</ThreadGroup>
-			<hashTree>
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 1" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 1, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 2" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 2, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 3" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 3, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 4" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 4, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 5" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 5, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 6" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 6, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 7" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 7, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 8" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 8, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 9" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 9, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 10" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 10, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 11" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 11, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 12" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 12, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 13" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 13, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 14" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 14, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 15" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 15, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 16" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 16, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 17" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 17, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 18" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 18, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 19" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 19, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree />
-				<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre 20" enabled="true">
-					<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-					<stringProp name="HTTPSampler.domain" />
-					<stringProp name="HTTPSampler.port" />
-					<stringProp name="HTTPSampler.protocol">http</stringProp>
-					<stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
-					<stringProp name="HTTPSampler.method">POST</stringProp>
-					<stringProp name="HTTPSampler.connect_timeout" />
-					<stringProp name="HTTPSampler.response_timeout" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true" />
-					<elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-						<collectionProp name="Arguments.arguments">
-							<elementProp name="" elementType="HTTPArgument">
-								<boolProp name="HTTPArgument.always_encode">false</boolProp>
-								<stringProp name="Argument.value">{"numeroChambre": 20, "typeC": "SIMPLE"}</stringProp>
-								<stringProp name="Argument.metadata">=</stringProp>
-								<boolProp name="HTTPArgument.use_equals">true</boolProp>
-								<stringProp name="Argument.name" />
-							</elementProp>
-						</collectionProp>
-					</elementProp>
-				</HTTPSamplerProxy>
-				<hashTree /></hashTree>
-		</hashTree>
-	</hashTree>
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Single Chambre Test" enabled="true">
+      <stringProp name="TestPlan.comments">Test creating one chambre via Docker Compose</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.thread_groups" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Single User" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1719784800000</longProp>
+        <longProp name="ThreadGroup.end_time">1719784800000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Add One Chambre" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{"numeroChambre":999,"typeC":"SIMPLE"}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">foyer-app</stringProp>
+          <stringProp name="HTTPSampler.port">8086</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/Foyer/chambre/addOrUpdate</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
 </jmeterTestPlan>
