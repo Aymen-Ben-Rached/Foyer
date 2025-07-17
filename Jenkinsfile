@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label '!docker' 
-    }
+    agent any
 
     environment {
         MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
@@ -115,7 +113,7 @@ pipeline {
                     docker ps -aqf "name=mysql" | xargs -r docker rm -f || true
                     docker ps -aqf "name=foyer-app" | xargs -r docker rm -f || true
                     docker-compose up -d
-                    sleep 30
+                    sleep 40
                     # Check application health
                     curl -f http://localhost:8086/Foyer/actuator/health || echo "Application not responding"
                 '''
@@ -124,12 +122,12 @@ pipeline {
 
         stage('Load Test with JMeter') {
             steps {
+                echo "Running JMeter load test"
                 sh '''
-                    # Verify network access first
-                    curl -v http://localhost:8086/Foyer/actuator/health
-                    
                     mkdir -p target/jmeter
                     docker run --rm \
+                      --network=foyer_pipeline_default \
+                      -u $(id -u):$(id -g) \
                       -v "$PWD":/test \
                       -w /test \
                       justb4/jmeter:5.4 \
@@ -137,6 +135,7 @@ pipeline {
                         -l target/jmeter/results.jtl \
                         -e -o target/jmeter/html \
                         -j target/jmeter/jmeter.log
+                    cat target/jmeter/jmeter.log || true
                 '''
             }
         }
