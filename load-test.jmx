@@ -10,7 +10,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="base_url" elementType="HTTPArgument">
             <stringProp name="Argument.name">base_url</stringProp>
-            <stringProp name="Argument.value">http://localhost:8086/Foyer</stringProp>
+            <stringProp name="Argument.value">http://foyer-app:8086/Foyer</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
