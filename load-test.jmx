@@ -23,7 +23,7 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Chambre" enabled="true">
-            <stringProp name="HTTPSampler.domain">foyer-app</stringProp>
+            <stringProp name="HTTPSampler.domain">localhost</stringProp>
             <stringProp name="HTTPSampler.port">8086</stringProp>
             <stringProp name="HTTPSampler.path">/Foyer/chambres</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
