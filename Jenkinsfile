@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo "Getting project from GitHub"
                 git url: 'https://github.com/Aymen-Ben-Rached/Foyer.git ',
-                    branch: 'master',
+                    branch: 'CRUD',
                     credentialsId: 'github-pat'
             }
         }
@@ -115,7 +115,7 @@ pipeline {
                     docker-compose up -d
                     sleep 40
                     # Check application health
-                    curl -f http://localhost:8086/health || echo "Application not responding"
+                    curl -f http://localhost:8086/Foyer/actuator/health || echo "Application not responding"
                 '''
             }
         }
@@ -126,7 +126,7 @@ pipeline {
                 sh '''
                     mkdir -p target/jmeter
                     docker run --rm \
-                      --network=foyer_pipeline2_default \
+                      --network=foyer_pipeline_default \
                       -u $(id -u):$(id -g) \
                       -v "$PWD":/test \
                       -w /test \
