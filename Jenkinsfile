@@ -126,7 +126,7 @@ pipeline {
                 sh '''
                     mkdir -p target/jmeter
                     docker run --rm \
-                      --network=foyer_pipeline_default \
+                      --network=host \
                       -u $(id -u):$(id -g) \
                       -v "$PWD":/test \
                       -w /test \
