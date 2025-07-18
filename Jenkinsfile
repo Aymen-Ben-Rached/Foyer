@@ -91,7 +91,6 @@ pipeline {
             }
         }
 
-        /*
         stage('Push Docker Image') {
             steps {
                 echo "Logging in to Docker Hub and pushing image"
@@ -103,7 +102,6 @@ pipeline {
                 }
             }
         }
-        */
 
         stage('Start Docker Compose Stack') {
             steps {
