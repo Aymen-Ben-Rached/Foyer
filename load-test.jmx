@@ -47,7 +47,7 @@
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           <stringProp name="HTTPSampler.postBodyRaw">{
-  "numeroChambre": "${__Random(100,999)}",
+  "numeroChambre": ${__Random(100,999)},
   "typeChambre": "SIMPLE"
 }</stringProp>
         </HTTPSamplerProxy>
